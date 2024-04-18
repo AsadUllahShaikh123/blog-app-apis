@@ -6,4 +6,5 @@ import com.blog.entities.User;
 
 public interface UserRepo extends JpaRepository<User, Integer>{
 
+	
 }
