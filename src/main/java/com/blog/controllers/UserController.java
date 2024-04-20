@@ -1,8 +1,11 @@
 package com.blog.controllers;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,5 +35,10 @@ public class UserController {
 		UserDto updatedUserDto = userService.updateUser(userDto, userId);
 		
 		return new ResponseEntity<>(updatedUserDto,HttpStatus.OK);
+	}
+	@DeleteMapping("/{userId}")
+	public ResponseEntity<?> deleteUser(@PathVariable Integer userId){
+		userService.deleteUser(userId);
+		return new ResponseEntity<>(Map.of("message","User Deleted successfully"),HttpStatus.OK);
 	}
 }
