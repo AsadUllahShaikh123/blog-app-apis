@@ -14,6 +14,7 @@ public class BlogAppApisApplication {
 		SpringApplication.run(BlogAppApisApplication.class, args);
 		
 	}
+	// it is responsible for the changing one object to another object
     @Bean
     public ModelMapper modelMapper() {
     	return new ModelMapper();
