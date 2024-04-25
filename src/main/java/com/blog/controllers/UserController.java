@@ -28,6 +28,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/")
+	// the @Valid will terminate the program with exception but the message is not readable
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
 		UserDto createUserDto = userService.createUser(userDto);
 		return new ResponseEntity<>(createUserDto,HttpStatus.CREATED);
