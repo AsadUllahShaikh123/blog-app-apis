@@ -26,35 +26,36 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@PostMapping("/")
-	// the @Valid will terminate the program with exception but the message is not readable
-	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
+	// the @Valid will terminate the program with exception but the message is not
+	// readable
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
 		UserDto createUserDto = userService.createUser(userDto);
-		return new ResponseEntity<>(createUserDto,HttpStatus.CREATED);
+		return new ResponseEntity<>(createUserDto, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserDto> getUserById( @PathVariable Integer userId){
-		return new ResponseEntity<UserDto>(userService.getUserById(userId),HttpStatus.OK);
+	public ResponseEntity<UserDto> getUserById(@PathVariable Integer userId) {
+		return new ResponseEntity<UserDto>(userService.getUserById(userId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/")
-	public ResponseEntity<List<UserDto>> getAllUsers(){
-		return new ResponseEntity<List<UserDto>>(userService.getAllUsers(),HttpStatus.OK);
+	public ResponseEntity<List<UserDto>> getAllUsers() {
+		return new ResponseEntity<List<UserDto>>(userService.getAllUsers(), HttpStatus.OK);
 	}
+
 	@PutMapping("/{userId}")
-	public ResponseEntity<UserDto> updateUser( @Valid @RequestBody UserDto userDto, @PathVariable Integer userId){
-	
+	public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer userId) {
+
 		UserDto updatedUserDto = userService.updateUser(userDto, userId);
-		return new ResponseEntity<>(updatedUserDto,HttpStatus.OK);
+		return new ResponseEntity<>(updatedUserDto, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<?> deleteUser(@PathVariable Integer userId){
+	public ResponseEntity<?> deleteUser(@PathVariable Integer userId) {
 		userService.deleteUser(userId);
-		return new ResponseEntity<>(Map.of("message","User Deleted successfully"),HttpStatus.OK);
+		return new ResponseEntity<>(Map.of("message", "User Deleted successfully"), HttpStatus.OK);
 	}
-	
-	
+
 }
