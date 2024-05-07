@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.payloads.PostDto;
 import com.blog.services.PostService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("api/posts")
 public class PostController {
@@ -20,7 +22,7 @@ public class PostController {
 	private PostService postService;
 	
 	@PostMapping("/user/{userId}/category/{categoryId}/posts")
-	public ResponseEntity<PostDto> createPost(@RequestBody PostDto postBody, @PathVariable Integer userId, @PathVariable Integer categoryId ) {
+	public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postBody, @PathVariable Integer userId, @PathVariable Integer categoryId ) {
 		PostDto postDto = postService.createPost(postBody, userId, categoryId);
 		return new ResponseEntity<PostDto>(postDto,HttpStatus.CREATED);
 	}
