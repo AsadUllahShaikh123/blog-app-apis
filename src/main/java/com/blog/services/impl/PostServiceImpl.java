@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.blog.entities.Category;
 import com.blog.entities.Post;
@@ -16,6 +17,7 @@ import com.blog.repositiries.PostRepo;
 import com.blog.repositiries.UserRepo;
 import com.blog.services.PostService;
 
+@Service
 public class PostServiceImpl implements PostService{
 
 	@Autowired
