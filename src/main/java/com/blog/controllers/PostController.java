@@ -30,12 +30,19 @@ public class PostController {
 		return new ResponseEntity<PostDto>(postDto,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{postId}")
-	public ResponseEntity<PostDto> getPost(@PathVariable Integer postId ){
+	@GetMapping("/posts/{postId}")
+	public ResponseEntity<PostDto> getPostById(@PathVariable Integer postId ){
 		
 		PostDto getPost = postService.getPostById(postId);
 		return new ResponseEntity<PostDto>(getPost,HttpStatus.OK);
 	}
+	@GetMapping("/posts")
+	public ResponseEntity<List<PostDto>> getAllPosts(){
+		List<PostDto> posts = postService.getAllPosts();
+		
+		return new ResponseEntity<>(posts,HttpStatus.OK);
+	}
+	
 	@GetMapping("/category/{categoryId}/posts")
 	public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable Integer categoryId){
 	
@@ -47,17 +54,4 @@ public class PostController {
 		List<PostDto> posts = postService.getPostsByUser(userId);
 		return new ResponseEntity<>(posts,HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

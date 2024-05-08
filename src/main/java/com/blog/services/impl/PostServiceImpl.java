@@ -61,18 +61,21 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public List<PostDto> getAllPosts() {
-		// TODO Auto-generated method stub
-		return null;
+			List<Post> posts = repo.findAll();
+			List<PostDto> dtos = posts.stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return dtos;
 	}
 
 	@Override
 	public PostDto getPostById(Integer id) {
-		Post getPost = repo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Post ", "postId", id));
-	    Integer userId = getPost.getUser().getId();
-		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User ", "userId", userId));
-		Integer categoryId = getPost.getCategory().getCategoryId();
-		Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category", "categoryId", categoryId)); 
-		return null;
+		Post post = repo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Post ", "postId", id));
+//	    Integer userId = getPost.getUser().getId();
+//		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User ", "userId", userId));
+//		Integer categoryId = getPost.getCategory().getCategoryId();
+//		Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category", "categoryId", categoryId));
+	
+		PostDto dto = modelMapper.map(post, PostDto.class);
+		return dto;
 	}
 
 	@Override
