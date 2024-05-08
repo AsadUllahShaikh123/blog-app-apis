@@ -5,13 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.payloads.ApiResponse;
 import com.blog.payloads.PostDto;
 import com.blog.services.PostService;
 
@@ -54,4 +57,20 @@ public class PostController {
 		List<PostDto> posts = postService.getPostsByUser(userId);
 		return new ResponseEntity<>(posts,HttpStatus.OK);
 	}
+	
+	@DeleteMapping("posts/{postId}")
+	public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer postId){
+		postService.deletePost(postId);
+		return new ResponseEntity<>(new ApiResponse("Post Deleted Successfully ",true),HttpStatus.OK);
+	}
+	
+	@PutMapping("posts/{postId}")
+	public ResponseEntity<PostDto> updatePost(@RequestBody PostDto post , @PathVariable Integer postId){
+		
+		PostDto dto = postService.updatePost(post, postId);
+		return new ResponseEntity<>(dto,HttpStatus.OK);
+	}
+	
+	
+	
 }

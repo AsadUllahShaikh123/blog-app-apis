@@ -48,15 +48,20 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public PostDto updatePost(PostDto postDto, Integer postId) {
-		// TODO Auto-generated method stub
-		return null;
+		Post post = repo.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post ", "postId", postId));
+		post.setTitle(postDto.getTitle());
+		post.setContent(postDto.getContent());
+		post.setImageName(postDto.getImageName());
+		
+		Post updatedPost = repo.save(post);
+		PostDto dto = modelMapper.map(updatedPost, PostDto.class);
+		return dto;
 	}
 
 	@Override
 	public void deletePost(Integer postId) {
-
-		
-		
+		Post post = repo.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "postId", postId));
+		repo.delete(post);
 	}
 
 	@Override
@@ -69,11 +74,6 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public PostDto getPostById(Integer id) {
 		Post post = repo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Post ", "postId", id));
-//	    Integer userId = getPost.getUser().getId();
-//		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User ", "userId", userId));
-//		Integer categoryId = getPost.getCategory().getCategoryId();
-//		Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category", "categoryId", categoryId));
-	
 		PostDto dto = modelMapper.map(post, PostDto.class);
 		return dto;
 	}
