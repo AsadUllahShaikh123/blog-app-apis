@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class PostDto {
 
+	private Integer id;
 	@NotEmpty
 	@Size(min=10)
 	private String title;
