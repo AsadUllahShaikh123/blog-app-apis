@@ -2,6 +2,7 @@ package com.blog.services.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,20 +67,32 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public PostDto getPostById(Integer id) {
-		// TODO Auto-generated method stub
+		Post getPost = repo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Post ", "postId", id));
+	    Integer userId = getPost.getUser().getId();
+		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User ", "userId", userId));
+		Integer categoryId = getPost.getCategory().getCategoryId();
+		Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category", "categoryId", categoryId)); 
 		return null;
 	}
 
 	@Override
-	public List<PostDto> getPostsByCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PostDto> getPostsByCategory(Integer categoryId) {
+		Category category= categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category ", "categoryId", categoryId));
+		List<Post> posts = repo.findByCategory(category);
+		
+		List<PostDto> dtos = posts.stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		
+		return dtos;
 	}
 
 	@Override
-	public List<PostDto> getPostsByUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PostDto> getPostsByUser(Integer userId) {
+		User users = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User ", "userId", userId));
+		
+		List<Post> posts =repo.findByUser(users);
+		List<PostDto> dtos = posts.stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		
+		return dtos;
 	}
 
 	@Override
