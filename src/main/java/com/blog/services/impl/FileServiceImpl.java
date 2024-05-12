@@ -28,7 +28,7 @@ public class FileServiceImpl implements FileService{
 		String fileName1 = randomId.concat(name.substring(name.lastIndexOf(".")));
 		
 		// Fullpath 
-		String filePath = path+ File.separator + fileName1;
+		String filePath = path+ File.separator + name;
 		
 		//create Folder if not created 
 		File f = new File(path);
