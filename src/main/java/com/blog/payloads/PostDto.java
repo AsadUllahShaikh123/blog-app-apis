@@ -1,6 +1,10 @@
 package com.blog.payloads;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.blog.entities.Comment;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -19,4 +23,5 @@ public class PostDto {
 	private Date addedDate;
 	private CategoryDto category;
 	private UserDto user;
+	private Set<Comment> comments = new HashSet<Comment>();
 }
