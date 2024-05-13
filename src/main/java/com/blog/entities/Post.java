@@ -1,8 +1,8 @@
 package com.blog.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,8 +38,8 @@ public class Post {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToMany(mappedBy= "post", cascade = CascadeType.ALL)
-	private Set<Comment> comments = new HashSet<Comment>();
+	@OneToMany(mappedBy= "post", cascade = CascadeType.ALL)	
+	private List<Comment> comments = new ArrayList<Comment>();
 	
 	
 	
