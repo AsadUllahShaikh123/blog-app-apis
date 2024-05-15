@@ -4,8 +4,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
